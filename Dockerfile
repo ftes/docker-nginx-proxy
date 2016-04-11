@@ -8,5 +8,8 @@ RUN mkdir /etc/nginx/vhost.d
 RUN echo 'proxy_cache nginx-cache;' \
   > /etc/nginx/vhost.d/default
 
+RUN echo 'proxy_cache_revalidate on;' \
+  > /etc/nginx/vhost.d/default_location
+
 VOLUME /etc/nginx/conf.d
 VOLUME /etc/nginx/vhost.d
