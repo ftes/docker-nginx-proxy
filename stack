@@ -1,0 +1,19 @@
+nginx-letsencrypt:
+  image: 'jrcs/letsencrypt-nginx-proxy-companion:latest'
+  volumes:
+    - '/etc/ssl/certs:/etc/nginx/certs'
+    - '/var/run/docker.sock:/var/run/docker.sock:ro'
+  volumes_from:
+    - nginx-proxy
+nginx-proxy:
+  image: 'ftes/nginx-proxy:latest'
+  environment:
+    - DEFAULT_HOST=url.com
+  ports:
+    - '80:80'
+    - '443:443'
+  volumes:
+    - '/etc/ssl/certs:/etc/nginx/certs:ro'
+    - '/var/run/docker.sock:/tmp/docker.sock:ro'
+    - /etc/nginx/vhost.d
+    - /usr/share/nginx/html
